@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Giới thiệu bản thân</title>
+</head>
+
+<body>
+    <!-- Trang giới thiệu bản thân (Bài 1). -->
+    <!-- Dùng cấu trúc semantic: header / main / footer. -->
+
+
+    <header>
+        <h1>Giới thiệu bản thân</h1>
+        <p><strong>Họ và tên:</strong> <!-- TODO: Họ tên -->Phùng Minh Vũ</p>
+        <p><strong>MSSV:</strong> <!-- TODO: MSSV -->20235252</p>
+    </header>
+
+
+    <main>
+        <section aria-labelledby="chan-dung">
+            <h2 id="chan-dung">Ảnh chân dung</h2>
+            <figure>
+                <img src="../images/chan-dung.jpg" alt="Ảnh chân dung của sinh viên" width="240" />
+                <figcaption>Ảnh chân dung.</figcaption>
+            </figure>
+        </section>
+
+
+        <section aria-labelledby="so-thich">
+            <h2 id="so-thich">Sở thích cá nhân</h2>
+            <p><!-- TODO: Mô tả sở thích -->Tôi quan tâm đến AI/Agent, blockchain (đặc biệt Solana), và thích đọc
+                các bài viết về hệ phân tán. Thời gian rảnh tôi chạy bộ. Tôi cũng hay tham gia các
+                hackathon công nghệ để học hỏi và kết nối.</p>
+        </section>
+
+
+        <section aria-labelledby="mon-2024">
+            <h2 id="mon-2024">Các môn đã học trong năm 2024</h2>
+            <!-- Dùng ul hoặc ol. Liệt kê đúng các môn BẠN đã học trong năm 2024. -->
+            <ul>
+                <!-- TODO: Danh sách bên dưới bằng môn học trong 2024 -->
+                <li>Cấu trúc dữ liệu và thuật toán - IT3011</li>
+                <li>Toán rời rạc - IT3020</li>
+                <li>Mạng máy tính - IT3080</li>
+                <li>Kiến trúc máy tính - IT3030</li>
+                <li>Cơ sở dữ liệu - IT3090</li>
+                <li>Lập trình hướng đối tượng - IT3100</li>
+            </ul>
+        </section>
+
+
+        <section aria-labelledby="lien-ket-ua-thich">
+            <h2 id="lien-ket-ua-thich">Liên kết yêu thích</h2>
+            <!-- Thay href bằng trang web yêu thích  -->
+            <p>Trang tôi hay truy cập: <a href="https://hust.edu.vn/" target="_blank" rel="noopener">Liên kết ưa
+                    thích</a></p>
+        </section>
+    </main>
+
+
+    <footer>
+        <!-- Footer cần có MSSV + ngày tạo. -->
+        <p>MSSV: 20235252 — Ngày tạo: <time datetime="2025-09-27">27/09/2025</time></p>
+    </footer>
+</body>
+
+</html>
