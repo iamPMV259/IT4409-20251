@@ -1,0 +1,8 @@
+Hướng dẫn tạo trang HTML cá nhân và lịch học
+
+Đầu tiên, tạo thư mục dự án, bên trong có thư mục src/ để chứa file HTML và images/ để chứa ảnh chân dung. 
+Trong src/, tạo hai file: gioi-thieu-ban-than.html và thong-tin-lich-hoc.html. 
+Sử dụng cấu trúc chuẩn HTML5 với <!DOCTYPE html>, <html>, <head>, <body>. 
+Khi chạy, mở terminal tại thư mục gốc và dùng lệnh:
+    "python3 -m http.server 8000"
+sau đó truy cập http://localhost:8000/src/gioi-thieu-ban-than.html và http://localhost:8000/src/thong-tin-lich-hoc.html bằng trình duyệt.
