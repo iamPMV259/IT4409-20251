@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cổng thông tin sinh viên</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js for graphs -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="text-gray-800">
+
+    <!-- Header Section -->
+    <header class="header-bg text-white shadow-md">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Logo and Title -->
+                <div class="flex items-center space-x-4">
+                    <div
+                        class="w-12 h-12 bg-white rounded-full flex items-center justify-center text-red-700 font-bold text-lg">
+                        BK
+                    </div>
+                    <div>
+                        <h1 class="text-lg font-bold uppercase">ĐẠI HỌC BÁCH KHOA HÀ NỘI</h1>
+                        <p class="text-sm uppercase">Cổng thông tin sinh viên</p>
+                    </div>
+                </div>
+                <!-- User Info -->
+                <div class="flex items-center space-x-3">
+                    <div
+                        class="w-10 h-10 bg-white rounded-full flex items-center justify-center text-red-700 font-bold">
+                        BK
+                    </div>
+                    <div class="text-right">
+                        <p class="text-xs">Xin chào</p>
+                        <p class="font-semibold">PHÙNG MINH VŨ</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation Bar -->
+    <nav class="header-bg text-white sticky top-0 z-40">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-center md:justify-start space-x-6 overflow-x-auto">
+                <a href="#" class="nav-link py-3 px-2 text-sm font-medium">TRANG CHỦ</a>
+                <a href="#" class="nav-link py-3 px-2 text-sm font-medium">INTERNATIONAL STUDENT</a>
+                <a href="#" class="nav-link py-3 px-2 text-sm font-medium">NGOẠI KHÓA</a>
+                <a href="#" class="nav-link py-3 px-2 text-sm font-medium">HƯỚNG NGHIỆP</a>
+                <a href="#" class="nav-link py-3 px-2 text-sm font-medium">HỌC BỔNG</a>
+                <a href="#" class="nav-link py-3 px-2 text-sm font-medium">CHẤM ĐIỂM</a>
+                <a href="#" class="nav-link py-3 px-2 text-sm font-medium">HÀNH CHÍNH</a>
+                <a href="#" class="nav-link py-3 px-2 text-sm font-medium">TÂN SINH VIÊN</a>
+                <a href="#" class="nav-link active py-3 px-2 text-sm font-medium">HỒ SƠ</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Breadcrumb -->
+        <div class="mb-6 text-sm text-gray-500">
+            <span>CTSV</span> / <span class="font-semibold text-gray-700">HỒ SƠ</span>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+            <!-- Left Sidebar: Student Info -->
+            <aside class="lg:col-span-4 xl:col-span-3">
+                <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
+                    <div class="relative mb-16">
+                        <img src="images/background.jpg" alt="Ảnh bìa"
+                            class="absolute top-0 left-0 w-full h-24 object-cover rounded-t-lg">
+                        <div class="absolute top-12 left-1/2 -translate-x-1/2">
+                            <img src="images/avatar.jpg" alt="Ảnh đại diện"
+                                class="w-36 h-36 rounded-full object-cover border-4 border-white shadow-md">
+                        </div>
+                    </div>
+                    <div class="flex flex-col items-center mt-24">
+                        <div class="text-center">
+                            <p class="text-xs text-gray-500">MS: 20225252</p>
+                            <h2 class="text-lg font-bold mt-1">PHÙNG MINH VŨ</h2>
+                            <p class="text-sm mt-1">Lớp: Khoa học máy tính 02-K68</p>
+                            <p class="text-sm text-gray-600 mt-2">Email: vu.pm225252@sis.hust.edu.vn</p>
+                            <p class="text-sm text-gray-600">Email cá nhân: minhvu.2592005@gmail.com</p>
+                        </div>
+                    </div>
+                    <div class="mt-6 border-t pt-4">
+                        <div class="flex border-b">
+                            <button class="flex-1 py-2 text-sm font-medium tab-button active">Trạng thái</button>
+                            <button class="flex-1 py-2 text-sm font-medium tab-button">Quản lý</button>
+                        </div>
+                        <div class="mt-4 space-y-3 text-sm">
+                            <div class="flex justify-between">
+                                <span class="text-gray-500">Trạng thái học tập:</span>
+                                <span class="font-semibold text-green-600">Học</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-500">CPA:</span>
+                                <span class="font-semibold">2.98</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-500">Nợ:</span>
+                                <span class="font-semibold">0 TC</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-500">Tích lũy:</span>
+                                <span class="font-semibold">70.0 TC</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-500">Mức cảnh cáo:</span>
+                                <span class="font-semibold">Mức 0</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-500">Trình độ:</span>
+                                <span class="font-semibold">Năm thứ nhất</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Right Content: Detailed Info -->
+            <section class="lg:col-span-8 xl:col-span-9">
+                <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
+                    <!-- Tabs -->
+                    <div class="border-b border-gray-200">
+                        <nav class="-mb-px flex space-x-6 overflow-x-auto" aria-label="Tabs">
+                            <button class="tab-button active py-3 px-1 text-sm whitespace-nowrap">Lý lịch</button>
+                            <button class="tab-button py-3 px-1 text-sm whitespace-nowrap">Quyết định</button>
+                            <button class="tab-button py-3 px-1 text-sm whitespace-nowrap">Khen thưởng</button>
+                            <button class="tab-button py-3 px-1 text-sm whitespace-nowrap">Liên hệ</button>
+                            <button class="tab-button py-3 px-1 text-sm whitespace-nowrap">Nhận xét</button>
+                            <button class="tab-button py-3 px-1 text-sm whitespace-nowrap">Hoạt động tham gia</button>
+                        </nav>
+                    </div>
+
+                    <!-- Tab Content -->
+                    <div class="pt-6 text-sm">
+                        <!-- Personal Info Section -->
+                        <div class="mb-8">
+                            <h3 class="info-heading">Thông tin cá nhân</h3>
+                            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-4">
+                                <div><span class="text-gray-500">Ngày sinh:</span> 25/09/2005</div>
+                                <div><span class="text-gray-500">Nơi sinh:</span> Tỉnh Vĩnh Phúc</div>
+                                <div><span class="text-gray-500">Giới tính:</span> Nam</div>
+                                <div><span class="text-gray-500">Số CMTND:</span> 026205004338</div>
+                                <div><span class="text-gray-500">Tôn giáo:</span> Không</div>
+                                <div><span class="text-gray-500">Dân tộc:</span> Kinh</div>
+                                <div><span class="text-gray-500">Ngày vào Đoàn:</span></div>
+                                <div><span class="text-gray-500">Ngày vào Đảng:</span></div>
+                                <div><span class="text-gray-500">Đối tượng chính sách:</span></div>
+                                <div class="md:col-span-2"><span class="text-gray-500">Số thẻ bảo hiểm:</span>
+                                    2820748314</div>
+                                <div class="md:col-span-3"><span class="text-gray-500">Địa chỉ thường trú:</span> thôn
+                                    Nhân Tiếp 2, xã Liên Châu, huyện Yên Lạc, tỉnh Vĩnh Phúc</div>
+                                <div class="md:col-span-3"><span class="text-gray-500">Nơi ở hiện tại:</span> 49B, ngõ
+                                    121 Lê Thanh Nghị</div>
+                            </div>
+                        </div>
+
+                        <!-- Family Info Section (Empty as requested) -->
+                        <div class="mb-8">
+                            <h3 class="info-heading">Thông tin gia đình</h3>
+                            <!-- Content is intentionally left blank -->
+                        </div>
+
+                        <!-- Other Relatives Info Section -->
+                        <div>
+                            <h3 class="info-heading">Thông tin người thân khác</h3>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-2">
+                                <div><span class="text-gray-500">Thuộc hộ:</span> </div>
+                                <div><span class="text-gray-500">Số sổ:</span> </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Charts Section -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-8">
+            <!-- Academic Chart -->
+            <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
+                <h3 class="text-lg font-semibold mb-4">Biểu đồ học tập</h3>
+                <canvas id="academicChart"></canvas>
+            </div>
+            <!-- Training Chart -->
+            <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
+                <h3 class="text-lg font-semibold mb-4">Biểu đồ rèn luyện</h3>
+                <canvas id="trainingChart"></canvas>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer Section -->
+    <footer class="mt-12 pt-16 pb-8 relative overflow-hidden bg-gray-100">
+        <!-- City silhouette background -->
+        <div class="city-silhouette"></div>
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10 text-gray-600">
+            <h4 class="font-bold text-xl uppercase">BAN CÔNG TÁC SINH VIÊN</h4>
+            <p class="mt-2 text-sm">Địa chỉ: P101, 102, 103, 104, 105 nhà C1</p>
+            <p class="text-sm">Email: ctsv@hust.edu.vn - Tel: +84 (0)24 3869 3108</p>
+
+            <div class="mt-8 flex flex-col items-center">
+                <div class="flex items-center space-x-3">
+                    <div class="w-12 h-12 bg-white rounded-lg flex items-center justify-center shadow-md">
+                        <span class="text-red-700 font-bold">BK</span>
+                    </div>
+                    <p class="font-semibold text-left">Cài đặt ứng dụng eHUST <br> trên điện thoại</p>
+                </div>
+                <div class="flex space-x-4 mt-4">
+                    <a href="#" class="inline-block"><img
+                            src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg"
+                            alt="Tải trên Google Play" class="h-12"></a>
+                    <a href="#" class="inline-block"><img
+                            src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Download_on_the_App_Store_Badge.svg/2560px-Download_on_the_App_Store_Badge.svg.png"
+                            alt="Tải trên App Store" class="h-12"></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Tab functionality
+        document.addEventListener('DOMContentLoaded', function () {
+            const tabContainers = document.querySelectorAll('section, aside');
+
+            tabContainers.forEach(container => {
+                const tabButtons = container.querySelectorAll('.tab-button');
+
+                tabButtons.forEach(button => {
+                    button.addEventListener('click', () => {
+                        tabButtons.forEach(btn => btn.classList.remove('active'));
+                        button.classList.add('active');
+                    });
+                });
+            });
+
+            // Academic Chart
+            const academicCtx = document.getElementById('academicChart').getContext('2d');
+            new Chart(academicCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['20231', '20232', '20241', '20242'],
+                    datasets: [{
+                        type: 'line',
+                        label: 'CPA',
+                        data: [3.5, 3.6, 3.4, 3.5],
+                        borderColor: '#8b5cf6',
+                        backgroundColor: '#8b5cf6',
+                        yAxisID: 'y1',
+                        tension: 0.1
+                    }, {
+                        type: 'line',
+                        label: 'GPA',
+                        data: [3.6, 3.4, 2.5, 3.1],
+                        borderColor: '#34d399',
+                        backgroundColor: '#34d399',
+                        yAxisID: 'y1',
+                        tension: 0.1
+                    }, {
+                        type: 'bar',
+                        label: 'TC tích lũy',
+                        data: [15, 30, 50, 70],
+                        backgroundColor: '#2563eb',
+                        yAxisID: 'y',
+                    }, {
+                        type: 'bar',
+                        label: 'TC nợ',
+                        data: [0, 0, 0, 0],
+                        backgroundColor: '#f59e0b',
+                        yAxisID: 'y',
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    interaction: {
+                        mode: 'index',
+                        intersect: false,
+                    },
+                    plugins: {
+                        tooltip: {
+                            backgroundColor: '#fff',
+                            titleColor: '#333',
+                            bodyColor: '#666',
+                            borderColor: '#ddd',
+                            borderWidth: 1,
+                        }
+                    },
+                    scales: {
+                        y: {
+                            type: 'linear',
+                            display: true,
+                            position: 'left',
+                            title: {
+                                display: true,
+                                text: 'TC tích lũy'
+                            },
+                            beginAtZero: true
+                        },
+                        y1: {
+                            type: 'linear',
+                            display: true,
+                            position: 'right',
+                            title: {
+                                display: true,
+                                text: 'Điểm'
+                            },
+                            grid: {
+                                drawOnChartArea: false,
+                            },
+                            min: 0,
+                            max: 4,
+                            beginAtZero: true
+                        },
+                    }
+                }
+            });
+
+            // Training Chart
+            const trainingCtx = document.getElementById('trainingChart').getContext('2d');
+            new Chart(trainingCtx, {
+                type: 'line',
+                data: {
+                    labels: ['2023-1', '2023-2', '2024-1', '2024-2'],
+                    datasets: [{
+                        label: 'Điểm rèn luyện',
+                        data: [85, 60, 25, 35],
+                        borderColor: '#06b6d4',
+                        backgroundColor: '#06b6d4',
+                        tension: 0.1,
+                        fill: false
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 100
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
