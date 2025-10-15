@@ -1,1 +1,15 @@
-week 1 exercise 2
+week 4
+
+Tạo một trang kết quả học tập để hiển thị:
+
+Thông tin sinh viên (họ tên, MSSV, Email)
+Kết quả học tập gồm: học kỳ, mã học phần, tên học phần, số tín chỉ, điểm số, điểm chữ của các môn trong học kỳ 2024.1 và 2024.2 vừa qua. Kết quả có thể dưới dạng bảng hoặc một định dạng tùy thích.
+Các nút thao tác gồm
+Button Highlight: tô màu xanh "dòng" kết quả A, A+; tô màu đen những kết quả F
+Button GPA: tính toán điểm trung bình học kỳ 2024.1 và 2024.2
+Button Filter: chỉ giữ lại các kết quả A, A+
+Button Sort: sắp xếp các kết quả theo thứ tự điểm số tăng dần
+Yêu cầu nộp:
+Trang HTML có chứa HTML, CSS, JS
+Ảnh chụp kết quả học tập thật của sinh viên trong học kỳ 2024.1 và 2024.2
+Ảnh chụp minh họa một thao tác, kèm thông tin máy tính

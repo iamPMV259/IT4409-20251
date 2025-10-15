@@ -1,0 +1,32 @@
+body {
+    font-family: 'Inter', sans-serif;
+}
+
+/* Kiểu cơ bản cho các dòng của bảng */
+#results-table tbody tr:nth-child(even) {
+    background-color: #f9fafb;
+    /* gray-50 */
+}
+
+#results-table tbody tr:hover {
+    background-color: #f3f4f6;
+    /* gray-100 */
+}
+
+
+/* Kiểu tô màu - SỬA LỖI: Tăng độ ưu tiên và ghi đè cả trạng thái hover */
+#results-table tbody tr.highlight-a,
+#results-table tbody tr.highlight-a:hover {
+    background-color: #dcfce7;
+    /* green-100 */
+    color: #166534;
+    /* green-800 */
+}
+
+#results-table tbody tr.highlight-f,
+#results-table tbody tr.highlight-f:hover {
+    background-color: #fee2e2;
+    /* red-100 */
+    color: #991b1b;
+    /* red-800 */
+}

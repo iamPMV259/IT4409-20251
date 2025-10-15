@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kết Quả Học Tập - Phùng Minh Vũ</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="bg-gray-100 text-gray-800">
+
+    <div class="container mx-auto p-4 md:p-8">
+        <header class="text-center mb-8">
+            <h1 class="text-3xl md:text-4xl font-bold text-gray-900">Bảng Kết Quả Học Tập</h1>
+            <p class="text-md text-gray-600 mt-2">Đại học Bách Khoa Hà Nội - Trường Công nghệ thông tin và Truyền thông
+            </p>
+        </header>
+
+        <!-- Student Information Card -->
+        <div class="bg-white rounded-lg shadow-md p-6 mb-8 max-w-2xl mx-auto">
+            <h2 class="text-2xl font-semibold mb-4 border-b pb-2">Thông tin sinh viên</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <p class="font-medium">Họ và tên:</p>
+                    <p>Phùng Minh Vũ</p>
+                </div>
+                <div>
+                    <p class="font-medium">Mã số sinh viên:</p>
+                    <p>20235252</p>
+                </div>
+                <div class="md:col-span-2">
+                    <p class="font-medium">Email:</p>
+                    <p>minhvu2592005@gmail.com</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h3 class="text-xl font-semibold mb-4">Chức năng</h3>
+            <div class="flex flex-wrap gap-3">
+                <button id="highlight-btn"
+                    class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg transition duration-300">Tô
+                    màu Điểm</button>
+                <button id="gpa-btn"
+                    class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-lg transition duration-300">Tính
+                    GPA</button>
+                <button id="filter-btn"
+                    class="bg-purple-500 hover:bg-purple-600 text-white font-bold py-2 px-4 rounded-lg transition duration-300">Lọc
+                    Điểm A/A+</button>
+                <button id="sort-btn"
+                    class="bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 px-4 rounded-lg transition duration-300">Sắp
+                    xếp Điểm</button>
+                <button id="reset-btn"
+                    class="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded-lg transition duration-300">Thiết
+                    lập lại</button>
+            </div>
+            <div id="gpa-result" class="mt-4 text-lg font-semibold hidden"></div>
+        </div>
+
+        <!-- Academic Results Table -->
+        <div class="bg-white rounded-lg shadow-md overflow-x-auto">
+            <table class="min-w-full text-sm text-left text-gray-700" id="results-table">
+                <thead class="bg-gray-200 text-gray-800 uppercase text-xs">
+                    <tr>
+                        <th scope="col" class="px-6 py-3">Học kỳ</th>
+                        <th scope="col" class="px-6 py-3">Mã HP</th>
+                        <th scope="col" class="px-6 py-3">Tên học phần</th>
+                        <th scope="col" class="px-6 py-3 text-center">Tín chỉ</th>
+                        <th scope="col" class="px-6 py-3 text-center">Điểm số</th>
+                        <th scope="col" class="px-6 py-3 text-center">Điểm chữ</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Data will be inserted here by JavaScript -->
+                </tbody>
+            </table>
+        </div>
+
+        <footer class="text-center text-gray-500 mt-8">
+            <p>&copy; 2024 Phùng Minh Vũ - Bảng điểm cá nhân</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
