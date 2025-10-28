@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tra cứu kết quả học tập sinh viên</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎓 Hệ thống tra cứu kết quả học tập</h1>
+            <p class="subtitle">Tra cứu điểm số và thành tích học tập của sinh viên</p>
+        </header>
+
+        <div class="search-section">
+            <div class="search-box">
+                <input 
+                    type="text" 
+                    id="studentId" 
+                    placeholder="Nhập mã số sinh viên (VD: 20235252)" 
+                    maxlength="8"
+                >
+                <button id="searchBtn" class="btn-primary">
+                    <span class="btn-text">Tra cứu</span>
+                    <span class="btn-loader" style="display: none;">⏳</span>
+                </button>
+                <button id="clearCacheBtn" class="btn-secondary" title="Xóa dữ liệu cache">
+                    🗑️ Xóa Cache
+                </button>
+            </div>
+            <div id="errorMessage" class="error-message" style="display: none;"></div>
+            <div id="cacheInfo" class="cache-info" style="display: none;">
+                ℹ️ Dữ liệu được lấy từ cache
+            </div>
+        </div>
+
+        <div id="studentInfo" class="student-info" style="display: none;">
+            <h2>Thông tin sinh viên</h2>
+            <div class="info-grid">
+                <div class="info-item">
+                    <strong>Mã sinh viên:</strong>
+                    <span id="displaySid"></span>
+                </div>
+                <div class="info-item">
+                    <strong>Họ và tên:</strong>
+                    <span id="displayName"></span>
+                </div>
+                <div class="info-item">
+                    <strong>Ngày sinh:</strong>
+                    <span id="displayDob"></span>
+                </div>
+            </div>
+        </div>
+
+        <div id="loadingIndicator" class="loading-indicator" style="display: none;">
+            <div class="spinner"></div>
+            <p>Đang tải dữ liệu...</p>
+        </div>
+
+        <div id="resultsSection" class="results-section" style="display: none;">
+            <div class="results-header">
+                <h2>Kết quả học tập</h2>
+                <div class="statistics">
+                    <div class="stat-item">
+                        <span class="stat-label">Tổng số học phần:</span>
+                        <span id="totalCourses" class="stat-value">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Tổng tín chỉ:</span>
+                        <span id="totalCredits" class="stat-value">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">CPA (hệ 4.0):</span>
+                        <span id="avgGPA" class="stat-value">0.00</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="table-container">
+                <table id="resultsTable">
+                    <thead>
+                        <tr>
+                            <th>STT</th>
+                            <th>Mã HP</th>
+                            <th>Tên học phần</th>
+                            <th>Tín chỉ</th>
+                            <th>Học kỳ</th>
+                            <th>Điểm số</th>
+                            <th>Điểm chữ</th>
+                            <th>Xếp loại</th>
+                        </tr>
+                    </thead>
+                    <tbody id="resultsBody">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

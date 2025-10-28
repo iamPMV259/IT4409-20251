@@ -1,1 +1,36 @@
-week 1 exercise 2
+Trang tra cứu kết quả học tập sinh viên
+Mục tiêu: Xây dựng trang web tra cứu kết quả học tập bằng JavaScript bất đồng bộ (sử dụng Promise và async/await), mô phỏng quá trình lấy dữ liệu từ server.
+
+1. Dữ liệu
+Tạo 3 mảng hoặc 3 file JSON sau:
+Sinh viên (sinhvien): { sid, name, dob }
+Học phần (hocphan): { cid, name, credits }
+Kết quả học tập (ketqua): { sid, cid, term, score } (score trong hệ 10)
+Dữ liệu chứa toàn bộ kết quả điểm số thật (tên học phần, kết quả, học kỳ học...) của bạn ít nhất từ học kỳ 20241 đến nay nhưng kết quả đó có thể gắn với mã số sinh viên khác để đa dạng việc tra cứu.
+
+2. Giao diện
+Trang web cần có:
+Ô nhập mã số sinh viên, Nút tra cứu
+Bảng hiển thị kết quả gồm các cột: Mã học phần, Tên học phần, Số tín chỉ, Học kỳ, Điểm số, Điểm chữ quy đổi.
+
+3. Hoạt động
+Khi người dùng nhập mã sinh viên:
++ Tra cứu thông tin sinh viên trong sinhvien.
++ Dựa vào sid để lấy danh sách học phần từ ketqua.
++ Dùng cid để tra thông tin chi tiết trong hocphan.
+Mô phỏng bất đồng bộ:
++ Dùng fetch() hoặc setTimeout() để giả lập việc lấy dữ liệu.
++ Xử lý bằng Promise hoặc async/await.
++ Hiển thị trạng thái “Đang tải...” khi đang truy vấn dữ liệu.
++ Xử lý lỗi bằng try...catch.
+
+4. Yêu cầu cụ thể
++ Cho phép tra cứu kết quả theo mã sinh viên.
++ Cache kết quả bằng localStorage để tra cứu lại nhanh hơn.
+
+5. Nộp bài
+Sinh viên nộp 04 tệp sau:
++ Trang web (.html) – giao diện và mã JavaScript.
++ Ảnh chụp giao diện web, mã nguồn minh họa và thông tin máy tính
++ Tệp mô tả (.txt hoặc .md) – giải thích cấu trúc mã nguồn, cách xử lý bất đồng bộ, và quy trình làm
++ Ảnh chụp kết quả học tập thật của mình để đối chiếu.
