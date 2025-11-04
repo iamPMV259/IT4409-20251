@@ -1,0 +1,154 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+  padding: 20px;
+}
+
+.app {
+  max-width: 1200px;
+  margin: 0 auto;
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+}
+
+.app-header {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 40px;
+  text-align: center;
+}
+
+.app-header h1 {
+  font-size: 2.5em;
+  margin-bottom: 10px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.subtitle {
+  font-size: 1.1em;
+  opacity: 0.95;
+}
+
+.error-container {
+  padding: 40px;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.error-message {
+  background: #f8d7da;
+  color: #721c24;
+  padding: 20px;
+  border-radius: 10px;
+  border-left: 4px solid #f5c6cb;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  font-size: 1.1em;
+}
+
+.error-icon {
+  font-size: 1.5em;
+}
+
+.error-text {
+  flex: 1;
+}
+
+.instruction-container {
+  padding: 60px 40px;
+  animation: fadeIn 0.5s ease;
+}
+
+.instruction-card {
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  padding: 40px;
+  border-radius: 15px;
+  max-width: 600px;
+  margin: 0 auto;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.instruction-card h3 {
+  color: #667eea;
+  font-size: 1.8em;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.instruction-card ol {
+  margin-left: 20px;
+  margin-bottom: 30px;
+}
+
+.instruction-card ol li {
+  font-size: 1.1em;
+  margin-bottom: 10px;
+  color: #333;
+  line-height: 1.6;
+}
+
+.example-codes {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  border-left: 4px solid #667eea;
+}
+
+.example-codes p {
+  font-weight: 600;
+  color: #667eea;
+  margin-bottom: 10px;
+}
+
+.example-codes ul {
+  list-style: none;
+  padding: 0;
+}
+
+.example-codes ul li {
+  padding: 8px 0;
+  color: #555;
+  font-family: 'Courier New', monospace;
+  font-size: 0.95em;
+}
+
+.example-codes ul li:before {
+  content: "▸ ";
+  color: #667eea;
+  font-weight: bold;
+  margin-right: 8px;
+}
+
+@media (max-width: 768px) {
+  .app-header h1 {
+    font-size: 1.8em;
+  }
+  
+  .instruction-container {
+    padding: 40px 20px;
+  }
+  
+  .instruction-card {
+    padding: 30px 20px;
+  }
+}

@@ -1,0 +1,92 @@
+[
+  {
+    "cid": "IT3030",
+    "name": "Kiến trúc máy tính",
+    "credits": 3
+  },
+  {
+    "cid": "IT3080",
+    "name": "Mạng máy tính",
+    "credits": 3
+  },
+  {
+    "cid": "IT3090",
+    "name": "Cơ sở dữ liệu",
+    "credits": 3
+  },
+  {
+    "cid": "IT3100",
+    "name": "Lập trình hướng đối tượng",
+    "credits": 2
+  },
+  {
+    "cid": "IT4480",
+    "name": "Làm việc nhóm và kỹ năng giao tiếp",
+    "credits": 2
+  },
+  {
+    "cid": "MI2020",
+    "name": "Xác suất thống kê",
+    "credits": 3
+  },
+  {
+    "cid": "MI3052",
+    "name": "Nhập môn các phương pháp tối ưu",
+    "credits": 2
+  },
+  {
+    "cid": "PE2801",
+    "name": "Nhảy xa",
+    "credits": 0
+  },
+  {
+    "cid": "PH1120",
+    "name": "Vật lý đại cương II",
+    "credits": 3
+  },
+  {
+    "cid": "IT2030",
+    "name": "Technical Writing and Presentation",
+    "credits": 3
+  },
+  {
+    "cid": "IT3040",
+    "name": "Kỹ thuật lập trình",
+    "credits": 2
+  },
+  {
+    "cid": "IT3070",
+    "name": "Nguyên lý hệ điều hành",
+    "credits": 3
+  },
+  {
+    "cid": "IT3160",
+    "name": "Nhập môn Trí tuệ nhân tạo",
+    "credits": 3
+  },
+  {
+    "cid": "IT3170",
+    "name": "Thuật toán ứng dụng",
+    "credits": 2
+  },
+  {
+    "cid": "MI1131",
+    "name": "Giải tích III",
+    "credits": 3
+  },
+  {
+    "cid": "PE2101",
+    "name": "Bóng chuyền 1",
+    "credits": 0
+  },
+  {
+    "cid": "PE2401",
+    "name": "Bóng bàn 1",
+    "credits": 0
+  },
+  {
+    "cid": "SSH1121",
+    "name": "Kinh tế chính trị Mác - Lênin",
+    "credits": 2
+  }
+]

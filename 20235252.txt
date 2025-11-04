@@ -1,1 +1,71 @@
-week 1 exercise 2
+week 7
+Tuần 7. React
+Due today at 10:00 PM
+•
+Closes today at 10:00 PM
+Instructions
+1. Mục tiêu 
+Sinh viên xây dựng lại ứng dụng tra cứu kết quả học tập (đã làm bằng JavaScript thuần ở tuần trước) bằng React, nhằm: 
+
+- Hiểu cách React quản lý giao diện thông qua state và props.
+- Thực hành sử dụng Hooks cơ bản: useState, useEffect.
+- Làm quen với cấu trúc component-based UI trong React. 
+
+Công cụ: React + Vite hoặc Create React App 
+
+2. Mô tả bài toán 
+Ứng dụng cho phép người dùng nhập mã số sinh viên để tra cứu kết quả học tập, với dữ liệu đọc từ 3 tệp JSON trong thư mục public/:  
+
+- sinhvien.json – danh sách sinh viên
+- hocphan.json – danh sách học phần
+- ketqua.json – danh sách kết quả học tập 
+
+Khi người dùng nhấn nút “Tra cứu”:
+1. Ứng dụng hiển thị trạng thái “Đang tải...”
+2. Sau vài giây (giả lập bằng fetch() hoặc setTimeout()), hiển thị:
+   - Bảng kết quả học tập nếu sinh viên tồn tại
+   - Thông báo lỗi nếu không tìm thấy 
+
+3. Yêu cầu kỹ thuật 
+1. Cấu trúc Component (tối thiểu 3 component): 
+
+- App: quản lý toàn bộ state của ứng dụng
+- SearchForm: nhập mã sinh viên và nút “Tra cứu”
+- ResultTable: hiển thị kết quả học tập (table)
+(Có thể thêm LoadingIndicator nếu muốn tách rõ phần hiển thị đang tải) 
+
+2. Hooks (bắt buộc): 
+
+- useState: quản lý studentId, results, isLoading, error.
+- useEffect: mô phỏng quá trình gọi dữ liệu khi người dùng nhập mã sinh viên. 
+
+3. React thuần: 
+
+- Không dùng framework UI (Material UI, Bootstrap, Ant Design...).
+- Không dùng router, context, hay localStorage. 
+
+4. Render danh sách: 
+
+- Khi hiển thị kết quả bằng map(), phải gán key prop duy nhất cho mỗi dòng kết quả. 
+
+5. Thao tác và dữ liệu: 
+
+- Thao tác và nội dung tương tự bài JS ở Tuần 6, nhưng giao diện do React tự động cập nhật khi state thay đổi. 
+
+4. Sản phẩm nộp 
+
+- Mã nguồn Tuần 7, có cấu trúc component rõ ràng.
+
+- Ảnh chụp giao diện ở 3 trạng thái: đang tải, hiển thị kết quả, hiển thị thông báo lỗi, kèm thông tin máy tính
+
+- Mã nguồn Tuần 6 (để so sánh) 
+- File readme.txt ngắn (5–10 dòng), trình bày:
+
+  + Component nào quản lý state.
+  + Khi nào useEffect được kích hoạt. 
+
+
+5. Lưu ý 
+- Hiểu bài làm.  Giảng viên có thể yêu cầu sinh viên giải thích. Nếu không giải thích được thì 0đ quá trình.
+
+- Các file JSON cần được đặt trong thư mục public/
