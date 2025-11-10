@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src='https://unpkg.com/react@18/umd/react.development.js'></script>
+    <script src='https://unpkg.com/react-dom@18/umd/react-dom.development.js'></script>
+    <script src='https://unpkg.com/@babel/standalone/babel.min.js'></script>
+    <style type="text/css">
+        #root {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            font-family: Arial, sans-serif; 
+        }
+
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 999;
+        }
+
+        .modal-content {
+            background: #fff;
+            padding: 20px; 
+            width: 300px;
+            border-radius: 8px; 
+        }
+
+        .modal-content input {
+            width: 100%;
+            margin: 5px 0;
+            padding: 6px;
+            box-sizing: border-box;
+        }
+
+       
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+        thead {
+            background-color: #f4f4f4;
+        }
+        .input-search {
+            padding: 8px;
+            width: 300px;
+        }
+
+       
+        button {
+            margin-right: 5px;
+            padding: 6px 12px;
+            cursor: pointer;
+            border: none;
+            border-radius: 4px;
+            color: white;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        button:hover {
+            opacity: 0.85; 
+        }
+
+      
+        .btn-add-main {
+            background-color: #28a745; 
+            margin-bottom: 15px; 
+        }
+
+        
+        .btn-edit {
+            background-color: #007bff;
+        }
+
+      
+        .btn-delete {
+            background-color: #dc3545;
+        }
+
+       
+        .modal-content .btn-save {
+            background-color: #007bff;
+            margin-top: 10px;
+        }
+        
+      
+        .modal-content .btn-cancel {
+            background-color: #6c757d;
+            margin-top: 10px;
+        }
+
+
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+        function App(){
+            const [kw, setKeyword] = React.useState("");
+            const [newUser, setNewUser] = React.useState(null);
+
+            return (
+                <div>
+                    <h1>Quản lý người dùng</h1>
+                    <SearchForm onChangeValue={setKeyword} />
+                    <AddUser onAdd={setNewUser} />
+                    <ResultTable keyword={kw} user={newUser} onAdded={()=>setNewUser(null) } />
+                </div>
+            );
+            
+        }
+
+        function SearchForm({onChangeValue}){
+            return(
+                <input className="input-search" type="text" placeholder="Tìm theo name, username" onChange={(e) => onChangeValue(e.target.value)} />
+            );
+        }
+
+        function ResultTable({keyword, user, onAdded}){
+            const[users, setUsers] = React.useState([]);
+            const[loading, setLoading] = React.useState(true);
+            const [editing, setEditing] = React.useState(null);
+
+
+            React.useEffect(()=>{
+                fetch("https://jsonplaceholder.typicode.com/users")
+                .then(res => res.json())
+                .then(data => {setUsers(data)});
+            }, []);
+
+            const filteredUsers = users.filter(
+                (u) => u.name.toLowerCase().includes(keyword.toLowerCase()) ||
+                       u.username.toLowerCase().includes(keyword.toLowerCase())
+            );
+
+            React.useEffect(() => {
+                if (user) {
+                    setUsers((prev) => [...prev, { ...user, id: prev.length + 1 }]);
+                    onAdded();
+                }
+            }, [user]);
+
+            function removeUser(id) {
+                setUsers((prev) => prev.filter((u) => u.id !== id));
+            }
+
+            function editUser(user) {
+                setEditing({ ...user, address: { ...user.address } });
+            }
+
+            const handleChange = (e) => {
+                const { id, value } = e.target;
+                if (["street", "suite", "city"].includes(id)) {
+                    setEditing({ ...editing, address: { ...editing.address, [id]: value } });
+                } else {
+                    setEditing({ ...editing, [id]: value });
+                }
+            };
+
+            function handleSave() {
+                setUsers(prev => prev.map(u => u.id === editing.id ? editing : u));
+                setEditing(null);
+            }
+
+
+            return(
+                <div>
+                <table>
+                <thead>
+                    <tr>
+                        <td>ID</td>
+                        <td>Họ tên</td>
+                        <td>Username</td>
+                        <td>Email</td>
+                        <td>Địa chỉ</td>
+                        <td>Số điện thoại</td>
+                        <td>Thao tác</td>
+                    </tr>
+                </thead>
+                <tbody>
+                {filteredUsers.map((u) => (
+                  <tr key={u.id}>
+                    <td>{u.id}</td>
+                    <td>{u.name}</td>
+                    <td>{u.username}</td>
+                    <td>{u.email}</td>
+                    <td>
+                        {u.address?.street}, {u.address?.suite}, {u.address?.city}
+                    </td>
+                     <td>{u.phone}</td>
+                    <td>
+                        <button onClick={() => editUser(u)} className="btn-edit">Sửa</button>
+                        <button onClick={() => removeUser(u.id)} className="btn-delete">Xóa</button>
+                     </td>
+                  </tr>
+                ))}
+                </tbody>
+                </table>
+
+                {editing && (
+                    <div className="modal-overlay">
+                        <div className="modal-content">
+                            <h4>Sửa người dùng</h4>
+                            <label htmlFor="name">Name</label>
+                            <input id="name" type="text" value={editing.name} onChange={handleChange} /><br/>
+                            <label htmlFor="username">UserName</label>
+                            <input id="username" type="text" value={editing.username} onChange={handleChange} /><br/>
+                            <label htmlFor="email">Email</label>
+                            <input id="email" type="text" value={editing.email} onChange={handleChange} /><br/>
+                            <label htmlFor="street">Street</label>
+                            <input id="street" type="text" value={editing.address.street} onChange={handleChange} /><br/>
+                            <label htmlFor="suite">Suite</label>
+                            <input id="suite" type="text" value={editing.address.suite} onChange={handleChange} /><br/>
+                            <label htmlFor="city">City</label>
+                            <input id="city" type="text" value={editing.address.city} onChange={handleChange} /><br/>
+                            <label htmlFor="phone">Phone</label>
+                            <input id="phone" type="text" value={editing.phone} onChange={handleChange} /><br/><br/>
+                            <button className="btn-save" onClick={handleSave}>Lưu</button>
+                            <button className="btn-cancel" onClick={() => setEditing(null)}>Hủy</button>
+                        </div>
+                    </div>
+                )}
+               
+                </div>
+            
+            );
+        }
+        
+        function AddUser({onAdd}){
+            const [adding, setAdding] = React.useState(false);
+            const [user, setUser] = React.useState(
+                {name: "", username: "", email: "", address: {street: "", suite: "", city : ""}, phone:""}
+            )
+            const handleChange = (e) => {
+                const {id, value} = e.target;
+                if(["street", "suite", "city"].includes(id)){
+                    setUser({...user, address:{...user.address, [id]: value}});
+                }else{
+                    setUser({...user, [id]:value});
+                }
+            }
+            const handleAdd = () => {
+                if(user.name==="" || user.username===""){
+                    alert("Vui lòng nhập Name và Username");
+                    return;
+                }
+                onAdd(user);
+                setUser(
+                    {name: "", username: "", email: "", address: {street: "", suite: "", city : ""}, phone:""} 
+                )
+                setAdding(false);
+            }
+
+            return(
+                <div>
+                        <button className="btn-add-main" onClick ={() => setAdding(true)}>Thêm</button>
+                        {adding && (
+                            <div className="modal-overlay">
+                                <div className="modal-content">
+                                    <h4>Thêm người dùng</h4>
+                                    <label htmlFor="name">Name</label>
+                                    <input id="name" type="text" value={user.name} onChange={handleChange} /><br/>
+                                    <label htmlFor="username">UserName</label>
+                                    <input id="username" type="text" value={user.username} onChange={handleChange} /><br/>
+                                    <label htmlFor="email">Email</label>
+                                    <input id="email" type="text" value={user.email} onChange={handleChange} /><br/>
+                                    <label htmlFor="street">Street</label>
+                                    <input id="street" type="text" value={user.address.street} onChange={handleChange} /><br/>
+                                    <label htmlFor="suite">Suite</label>
+                                    <input id="suite" type="text" value={user.address.suite} onChange={handleChange} /><br/>
+                                    <label htmlFor="city">City</label>
+                                    <input id="city" type="text" value={user.address.city} onChange={handleChange} /><br/>
+                                    <label htmlFor="phone">Phone</label>
+                                    <input id="phone" type="text" value={user.phone} onChange={handleChange} /><br/><br/>
+                                    <button className="btn-save" onClick={handleAdd}>Thêm</button>
+                                    <button className="btn-cancel" onClick={()=>setAdding(false)}>Hủy</button>
+                                </div>
+                            </div>
+                        )
+                        }
+                </div>
+            );
+        }
+        const root = ReactDOM.createRoot(document.getElementById("root"));
+        root.render(<App />);
+    </script>
+
+</body>
+</html>

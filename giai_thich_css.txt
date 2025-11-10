@@ -1,0 +1,11 @@
+table và th, td: Tạo bảng có viền, đệm và canh lề text, với header có màu nền xám nhạt để phân biệt.
+
+.modal-overlay: Tạo lớp phủ tối khi mở form thêm/sửa user, sử dụng position: fixed để phủ toàn màn hình và căn giữa modal bằng flex.
+
+.modal-content: Định dạng khung chứa form thêm/sửa với nền trắng, padding và bo góc.
+
+.input-search: Tạo ô tìm kiếm rộng 300px với padding và font size phù hợp.
+
+.btn-edit, .btn-delete: Style cho nút sửa (màu xanh) và nút xóa (màu đỏ) với padding và con trỏ pointer.
+
+input và label: Định dạng các trường nhập liệu trong form với margin, padding hợp lý và label có độ rộng cố định 100px.
