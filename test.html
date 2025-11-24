@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src='https://unpkg.com/react@18/umd/react.development.js'></script>
+    <script src='https://unpkg.com/react-dom@18/umd/react-dom.development.js'></script>
+    <script src='https://unpkg.com/@babel/standalone/babel.min.js'></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <style type="text/css">
+        #root {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            font-family: Arial, sans-serif; 
+            position: relative; 
+        }
+
+        .notification-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            width: 400px; 
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .notification {
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+            color: #fff;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            animation: slideIn 0.5s ease-in-out;
+            font-size: 14px;
+        }
+
+        .notification.success { background-color: #28a745; }
+        .notification.error { background-color: #dc3545; }
+
+        .notification pre {
+            background: rgba(0, 0, 0, 0.3); 
+            padding: 10px;
+            border-radius: 4px;
+            margin-top: 10px;
+            white-space: pre-wrap;      
+            word-wrap: break-word;     
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 11px;
+            max-height: 200px;           
+            overflow-y: auto;         
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 999;
+        }
+
+        .modal-content {
+            background: #fff;
+            padding: 20px; 
+            width: 300px;
+            border-radius: 8px; 
+        }
+
+        .modal-content input {
+            width: 100%;
+            margin: 5px 0;
+            padding: 6px;
+            box-sizing: border-box;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+        thead { background-color: #f4f4f4; }
+        .input-search { padding: 8px; width: 300px; }
+
+        button {
+            margin-right: 5px;
+            padding: 6px 12px;
+            cursor: pointer;
+            border: none;
+            border-radius: 4px;
+            color: white;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        button:hover { opacity: 0.85; }
+
+        .btn-add-main { background-color: #28a745; margin-bottom: 15px; }
+        .btn-edit { background-color: #007bff; }
+        .btn-delete { background-color: #dc3545; }
+        .modal-content .btn-save { background-color: #007bff; margin-top: 10px; }
+        .modal-content .btn-cancel { background-color: #6c757d; margin-top: 10px; }
+
+        .pagination {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 5px;
+        }
+        .pagination button {
+            background-color: #f4f4f4;
+            color: #333;
+            border: 1px solid #ddd;
+        }
+        .pagination button.active {
+            background-color: #007bff;
+            color: white;
+            border-color: #007bff;
+        }
+
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+        function NotificationList({ notifications }) {
+            const safeStringify = (obj) => {
+                if (!obj) return "";
+                const displayObj = {
+                    status: obj.status,
+                    statusText: obj.statusText,
+                    headers: obj.headers,
+                    config: {
+                        method: obj.config?.method,
+                        url: obj.config?.url,
+                        data: obj.config?.data ? JSON.parse(obj.config.data) : null 
+                    },
+                    data: obj.data 
+                };
+                return JSON.stringify(displayObj, null, 2);
+            };
+
+            return (
+                <div className="notification-container">
+                    {notifications.map((note) => (
+                        <div key={note.id} className={`notification ${note.type}`}>
+                            <strong>{note.message}</strong>
+                            {/* Hiển thị toàn bộ response object dưới dạng JSON */}
+                            {note.response && (
+                                <div>
+                                    <small>Server Response Object:</small>
+                                    <pre>{safeStringify(note.response)}</pre>
+                                </div>
+                            )}
+                        </div>
+                    ))}
+                </div>
+            );
+        }
+
+        function App(){
+            const [kw, setKeyword] = React.useState("");
+            const [newUser, setNewUser] = React.useState(null);
+            const [notifications, setNotifications] = React.useState([]);
+
+            const addNotification = (message, type = 'success', response = null) => {
+                const id = Date.now();
+                setNotifications(prev => [...prev, { id, message, type, response }]);
+                setTimeout(() => {
+                    setNotifications(prev => prev.filter(n => n.id !== id));
+                }, 7000);
+            };
+
+            return (
+                <div>
+                    <NotificationList notifications={notifications} />
+                    <h1>Quản lý người dùng</h1>
+                    <SearchForm onChangeValue={setKeyword} />
+                    <AddUser onAdd={setNewUser} onNotify={addNotification} />
+                    <ResultTable 
+                        keyword={kw} 
+                        user={newUser} 
+                        onAdded={()=>setNewUser(null)} 
+                        onNotify={addNotification} 
+                    />
+                </div>
+            );
+        }
+
+        function SearchForm({onChangeValue}){
+            return(
+                <input className="input-search" type="text" placeholder="Tìm theo name, username" onChange={(e) => onChangeValue(e.target.value)} />
+            );
+        }
+
+        function ResultTable({keyword, user, onAdded, onNotify}){
+            const [users, setUsers] = React.useState([]);
+            const [editing, setEditing] = React.useState(null);
+            
+            const [currentPage, setCurrentPage] = React.useState(1);
+            const usersPerPage = 5;
+
+            React.useEffect(()=>{
+                const fetchData = async () => {
+                    try {
+                        const res = await axios.get("https://jsonplaceholder.typicode.com/users");
+                        setUsers(res.data);
+                    } catch (error) {
+                        console.error("Error fetching data:", error);
+                        onNotify("Lỗi tải dữ liệu", "error", error.response || error);
+                    }
+                };
+                fetchData();
+            }, []);
+
+            React.useEffect(() => {
+                if (user) {
+                    setUsers((prev) => [...prev, user]);
+                    onAdded();
+                }
+            }, [user]);
+
+            const filteredUsers = users.filter(
+                (u) => u.name.toLowerCase().includes(keyword.toLowerCase()) ||
+                       u.username.toLowerCase().includes(keyword.toLowerCase())
+            );
+
+            const indexOfLastUser = currentPage * usersPerPage;
+            const indexOfFirstUser = indexOfLastUser - usersPerPage;
+            const currentUsers = filteredUsers.slice(indexOfFirstUser, indexOfLastUser);
+
+            const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
+            async function removeUser(id) {
+                if(!confirm("Bạn có chắc chắn muốn xóa?")) return;
+                try {
+                    const res = await axios.delete(`https://jsonplaceholder.typicode.com/users/${id}`);
+                    
+                    
+                    onNotify(`Đã gửi yêu cầu xóa ID ${id}`, "success", res);
+                    
+                    setUsers((prev) => prev.filter((u) => u.id !== id));
+                } catch (error) {
+                    console.error("Error deleting user:", error);
+                    onNotify("Lỗi khi xóa người dùng", "error", error.response || error);
+                }
+            }
+
+            function editUser(user) {
+                setEditing({ ...user, address: { ...user.address } });
+            }
+
+            const handleChange = (e) => {
+                const { id, value } = e.target;
+                if (["street", "suite", "city"].includes(id)) {
+                    setEditing({ ...editing, address: { ...editing.address, [id]: value } });
+                } else {
+                    setEditing({ ...editing, [id]: value });
+                }
+            };
+
+            async function handleSave() {
+                try {
+                    const res = await axios.put(`https://jsonplaceholder.typicode.com/users/${editing.id}`, editing);
+                    
+                    onNotify(`Server Response: Update ID ${editing.id}`, "success", res);
+                    
+                    setUsers(prev => prev.map(u => u.id === editing.id ? res.data : u));
+                    setEditing(null);
+                } catch (error) {
+                    console.error("Error updating user:", error);
+                    onNotify("Lỗi khi cập nhật người dùng", "error", error.response || error);
+                }
+            }
+
+            return(
+                <div>
+                <table>
+                <thead>
+                    <tr>
+                        <td>ID</td>
+                        <td>Họ tên</td>
+                        <td>Username</td>
+                        <td>Email</td>
+                        <td>Địa chỉ</td>
+                        <td>Số điện thoại</td>
+                        <td>Thao tác</td>
+                    </tr>
+                </thead>
+                <tbody>
+                {currentUsers.map((u) => (
+                  <tr key={u.id}>
+                    <td>{u.id}</td>
+                    <td>{u.name}</td>
+                    <td>{u.username}</td>
+                    <td>{u.email}</td>
+                    <td>
+                        {u.address?.street}, {u.address?.suite}, {u.address?.city}
+                    </td>
+                     <td>{u.phone}</td>
+                    <td>
+                        <button onClick={() => editUser(u)} className="btn-edit">Sửa</button>
+                        <button onClick={() => removeUser(u.id)} className="btn-delete">Xóa</button>
+                     </td>
+                  </tr>
+                ))}
+                </tbody>
+                </table>
+                
+                <div className="pagination">
+                    {Array.from({ length: Math.ceil(filteredUsers.length / usersPerPage) }, (_, i) => (
+                        <button 
+                            key={i + 1} 
+                            onClick={() => paginate(i + 1)}
+                            className={currentPage === i + 1 ? "active" : ""}
+                        >
+                            {i + 1}
+                        </button>
+                    ))}
+                </div>
+
+                {editing && (
+                    <div className="modal-overlay">
+                        <div className="modal-content">
+                            <h4>Sửa người dùng</h4>
+                            <label htmlFor="name">Name</label>
+                            <input id="name" type="text" value={editing.name} onChange={handleChange} /><br/>
+                            <label htmlFor="username">UserName</label>
+                            <input id="username" type="text" value={editing.username} onChange={handleChange} /><br/>
+                            <label htmlFor="email">Email</label>
+                            <input id="email" type="text" value={editing.email} onChange={handleChange} /><br/>
+                            <label htmlFor="street">Street</label>
+                            <input id="street" type="text" value={editing.address.street} onChange={handleChange} /><br/>
+                            <label htmlFor="suite">Suite</label>
+                            <input id="suite" type="text" value={editing.address.suite} onChange={handleChange} /><br/>
+                            <label htmlFor="city">City</label>
+                            <input id="city" type="text" value={editing.address.city} onChange={handleChange} /><br/>
+                            <label htmlFor="phone">Phone</label>
+                            <input id="phone" type="text" value={editing.phone} onChange={handleChange} /><br/><br/>
+                            <button className="btn-save" onClick={handleSave}>Lưu</button>
+                            <button className="btn-cancel" onClick={() => setEditing(null)}>Hủy</button>
+                        </div>
+                    </div>
+                )}
+                </div>
+            );
+        }
+        
+        function AddUser({onAdd, onNotify}){
+            const [adding, setAdding] = React.useState(false);
+            const [user, setUser] = React.useState(
+                {name: "", username: "", email: "", address: {street: "", suite: "", city : ""}, phone:""}
+            )
+            const handleChange = (e) => {
+                const {id, value} = e.target;
+                if(["street", "suite", "city"].includes(id)){
+                    setUser({...user, address:{...user.address, [id]: value}});
+                }else{
+                    setUser({...user, [id]:value});
+                }
+            }
+            const handleAdd = async () => {
+                if(user.name==="" || user.username===""){
+                    alert("Vui lòng nhập Name và Username");
+                    return;
+                }
+                try {
+                    const res = await axios.post("https://jsonplaceholder.typicode.com/users", user);
+                    
+                    onNotify("Server Response: Create User", "success", res);
+
+                    const newUser = { ...res.data, id: Date.now() }; 
+                    onAdd(newUser);
+                    setUser(
+                        {name: "", username: "", email: "", address: {street: "", suite: "", city : ""}, phone:""} 
+                    )
+                    setAdding(false);
+                } catch (error) {
+                    console.error("Error creating user:", error);
+                    onNotify("Lỗi khi thêm người dùng", "error", error.response || error);
+                }
+            }
+
+            return(
+                <div>
+                        <button className="btn-add-main" onClick ={() => setAdding(true)}>Thêm</button>
+                        {adding && (
+                            <div className="modal-overlay">
+                                <div className="modal-content">
+                                    <h4>Thêm người dùng</h4>
+                                    <label htmlFor="name">Name</label>
+                                    <input id="name" type="text" value={user.name} onChange={handleChange} /><br/>
+                                    <label htmlFor="username">UserName</label>
+                                    <input id="username" type="text" value={user.username} onChange={handleChange} /><br/>
+                                    <label htmlFor="email">Email</label>
+                                    <input id="email" type="text" value={user.email} onChange={handleChange} /><br/>
+                                    <label htmlFor="street">Street</label>
+                                    <input id="street" type="text" value={user.address.street} onChange={handleChange} /><br/>
+                                    <label htmlFor="suite">Suite</label>
+                                    <input id="suite" type="text" value={user.address.suite} onChange={handleChange} /><br/>
+                                    <label htmlFor="city">City</label>
+                                    <input id="city" type="text" value={user.address.city} onChange={handleChange} /><br/>
+                                    <label htmlFor="phone">Phone</label>
+                                    <input id="phone" type="text" value={user.phone} onChange={handleChange} /><br/><br/>
+                                    <button className="btn-save" onClick={handleAdd}>Thêm</button>
+                                    <button className="btn-cancel" onClick={()=>setAdding(false)}>Hủy</button>
+                                </div>
+                            </div>
+                        )
+                        }
+                </div>
+            );
+        }
+        const root = ReactDOM.createRoot(document.getElementById("root"));
+        root.render(<App />);
+    </script>
+
+</body>
+</html>
