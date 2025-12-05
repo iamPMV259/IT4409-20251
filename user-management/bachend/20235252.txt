@@ -1,4 +1,4 @@
-giải thích:
+giải thích BE:
 1. Create: email duy nhất
 
 exist_user = await User.findOne({ email: email });
@@ -25,3 +25,37 @@ trước khi tạo user mới, tìm kiếm xem đã tồn tại email này chưa
         ]);
 
 dùng promise.all() để thực hiện 2 truy vấn đồng thời thay vì tuần tự
+
+giải thích FE:
+1. STT tăng dần theo toàn bộ các trang;
+thêm limit và page rồi tính STT dựa trên vị trí thực trong toàn bộ danh sách, không chỉ trong trang hiện tại.
+Công thức: STT = (page - 1) * limit + index + 1
+
+
+2. Page chuyển về 1 khi thay limit
+set về 1 khi thay đôỉ
+// App component
+const handleLimitChange = (newLimit) => {
+    setLimit(newLimit);
+    setPage(1);  // Reset page
+};
+
+3.  Kiểm tra và chuẩn hóa dữ liệu đầu vào
+Loại bỏ khoảng trắng thừa ở đầu/cuối trước khi gửi lên server.
+dùng trim() với các trường (trừ age)
+
+const trimmedData = {
+    name: formData.name.trim(),
+    email: formData.email.trim(),
+    address: formData.address.trim(),
+    age: formData.age
+};
+
+
+4. Lỗi
+thêm các lỗi 
+400: "Dữ liệu không hợp lệ",
+                    404: "Không tìm thấy dữ liệu",
+                    409: "Dữ liệu bị trùng lặp",
+                    500: "Lỗi máy chủ nội bộ",
+
