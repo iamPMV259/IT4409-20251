@@ -118,7 +118,7 @@
             const [editingUser, setEditingUser] = React.useState(null);
             // Fetch users
             const fetchUsers = () => {
-                const url = `https://it4409-be-user-crud.onrender.com/api/users?page=${page}&limit=${limit}&search=${search}`;
+                const url = `https://it4409-20251-w1o3.onrender.com/api/users?page=${page}&limit=${limit}&search=${search}`;
                 fetch(url)
                     .then(handleApiError)
                     .then(data => {
@@ -137,7 +137,7 @@
             }, [page, limit, search]);
 
             const deleteUser = (id) => {
-                fetch(`https://it4409-be-user-crud.onrender.com/api/users/${id}`, { method: "DELETE" })
+                fetch(`https://it4409-20251-w1o3.onrender.com/api/users/${id}`, { method: "DELETE" })
                     .then(handleApiError)
                     .then(data => {
                         alert(data.message);
@@ -325,8 +325,8 @@
                 if (!validate(trimmedData)) return;
 
                 const url = user
-                    ? `https://it4409-be-user-crud.onrender.com/api/users/${user._id}`
-                    : `https://it4409-be-user-crud.onrender.com/api/users`;
+                    ? `https://it4409-20251-w1o3.onrender.com/api/users/${user._id}`
+                    : `https://it4409-20251-w1o3.onrender.com/api/users`;
                 const method = user ? "PUT" : "POST";
 
                 fetch(url, {
